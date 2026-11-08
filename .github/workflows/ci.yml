@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install SDK, project and development tools
+        run: |
+          python -m pip install -r requirements-sdk.txt
+          python -m pip install -e ".[dev]"
+      - name: Offline tests
+        run: python -m pytest -q
+      - name: Build and validate Wheel
+        run: |
+          python -m build --wheel
+          python -m twine check dist/*
+          python scripts/verify_wheel.py
+      - name: Clean installation and entry point
+        run: |
+          python -m venv .venv-install
+          .venv-install/bin/python -m pip install -r requirements-sdk.txt
+          .venv-install/bin/python -m pip install dist/*.whl
+          .venv-install/bin/python -m pip check
+          .venv-install/bin/python scripts/verify_install.py

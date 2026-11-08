@@ -1,0 +1,3 @@
+# SDK v0.1.0 (peeled commit of the annotated tag). Not available on public PyPI.
+# Install this before the plugin when using pip; pip does not read tool.uv.sources.
+media-provider-sdk @ git+https://github.com/cloudtune-music/media-provider-sdk.git@2db38c876bd43b841948b5b999c8c4f22af99cfb

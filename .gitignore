@@ -1,0 +1,39 @@
+# Python environments, build output and tool caches
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+dist/
+build/
+*.egg-info/
+*.whl
+*.tar.gz
+
+# Credentials, local data and diagnostics
+.env
+.env.*
+!.env.example
+*cookie*.txt
+*cookie*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Editor and operating-system state
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

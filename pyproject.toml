@@ -1,0 +1,41 @@
+[project]
+name = "cloudtune-soundcloud-provider"
+version = "0.1.2"
+description = "SoundCloud source plugin for CloudTune Media Provider Server"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["media-provider-sdk>=0.1.0,<0.2.0", "yt-dlp>=2026.8.19"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "build>=1.2,<2", "twine>=6,<8"]
+
+[project.entry-points."media_provider.providers"]
+soundcloud = "cloudtune_soundcloud_provider.provider:SoundCloudProvider"
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cloudtune_soundcloud_provider"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src", "/tests", "/scripts", "/pyproject.toml", "/README.md", "/LICENSE",
+    "/CONTRIBUTING.md", "/SECURITY.md", "/requirements-sdk.txt", "/build_wheel.py",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.uv.sources]
+media-provider-sdk = { git = "https://github.com/cloudtune-music/media-provider-sdk.git", rev = "2db38c876bd43b841948b5b999c8c4f22af99cfb" }
